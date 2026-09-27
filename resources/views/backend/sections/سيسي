@@ -1,0 +1,101 @@
+{{-- Card Body --}}
+<div class="text-center">
+    <div class="avatar-md mx-auto mb-3">
+        <span
+            class="avatar-title rounded-circle bg-soft-primary text-primary font-24 shadow-sm"
+            style="width: 60px; height: 60px"
+        >
+            <i class="mdi mdi-google-classroom"></i>
+        </span>
+    </div>
+    <h4 class="text-dark font-bold mb-3">{{ $section->name_ar }}</h4>
+</div>
+
+<div class="d-flex flex-column gap-2 section-data mb-4 text-center">
+    <span class="premium-badge justify-content-center"
+        ><i class="mdi mdi-domain text-info font-16"></i>
+        {{ $section->branch->name_ar ?? 'بدون فرع' }}</span
+    >
+    <span class="premium-badge justify-content-center"
+        ><i class="mdi mdi-school-outline text-success font-16"></i>
+        {{ $section->grade->name_ar ?? 'غير محدد' }}</span
+    >
+    <span class="premium-badge justify-content-center"
+        ><i class="mdi mdi-calendar-clock text-warning font-16"></i>
+        {{ $section->academicYear->name ?? 'غير محدد' }}</span
+    >
+</div>
+
+{{-- Card Footer Stats --}}
+<div
+    class="bg-light rounded-3 p-2 d-flex justify-content-around text-center mt-auto mb-3"
+>
+    <div>
+        <p class="text-muted mb-0 font-12">الطلاب</p>
+        <h5 class="text-dark fw-bold mb-0">
+            {{ $section->students->count() ?? 0 }}
+        </h5>
+    </div>
+    <div class="border-end border-light"></div>
+    <div>
+        <p class="text-muted mb-0 font-12">المعلمين</p>
+        <h5 class="text-primary fw-bold mb-0">
+            {{ $section->teachers->count() }}
+        </h5>
+    </div>
+</div>
+
+{{-- 🔥 أزرار الموت رجعت بشياكة 🔥 --}}
+<div class="mt-2 border-top pt-3 d-flex justify-content-center gap-2">
+    {{-- زر الحذف --}}
+    <form
+        action="{{ route('admin.sections.destroy', $section->id) }}"
+        method="POST"
+        class="d-inline"
+    >
+        @csrf @method('DELETE')
+        <button
+            type="submit"
+            class="btn btn-sm btn-soft-danger px-2 py-1"
+            data-bs-toggle="tooltip"
+            title="حذف الشعبة"
+            onclick="return confirm('تأكيد الحذف النهائي؟');"
+        >
+            <i class="mdi mdi-trash-can-outline font-20"></i>
+        </button>
+    </form>
+
+    {{-- زر التعديل --}}
+    <button
+        type="button"
+        class="btn btn-sm btn-soft-primary px-2 py-1"
+        data-bs-toggle="modal"
+        data-bs-target="#editSectionModal{{ $section->id }}"
+        data-bs-toggle="tooltip"
+        title="تعديل البيانات"
+    >
+        <i class="mdi mdi-square-edit-outline font-20"></i>
+    </button>
+
+    {{-- زر عرض الطلاب --}}
+    <a
+        href="#"
+        class="btn btn-sm btn-soft-info px-2 py-1"
+        data-bs-toggle="tooltip"
+        title="سجل الطلاب"
+    >
+        <i class="mdi mdi-account-group-outline font-20"></i>
+    </a>
+
+    {{-- زر الحضور والغياب --}}
+    <a
+        href="#"
+        class="btn btn-sm btn-soft-warning px-2 py-1"
+        data-bs-toggle="tooltip"
+        title="الحضور والغياب"
+    >
+        <i class="mdi mdi-calendar-check font-20"></i>
+    </a>
+</div>
+
+زراير جديديه احسن
